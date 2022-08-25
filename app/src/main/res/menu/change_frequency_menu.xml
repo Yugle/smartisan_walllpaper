@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/change_frequency_quarter_hour"
+        android:title="@string/change_frequency_quarter_hour" />
+
+    <item
+        android:id="@+id/change_frequency_half_hour"
+        android:title="@string/change_frequency_half_hour" />
+
+    <item
+        android:id="@+id/change_frequency_a_hour"
+        android:title="@string/change_frequency_a_hour" />
+
+    <item
+        android:id="@+id/change_frequency_three_hours"
+        android:title="@string/change_frequency_three_hours" />
+
+    <item
+        android:id="@+id/change_frequency_a_day"
+        android:title="@string/change_frequency_a_day" />
+</menu>

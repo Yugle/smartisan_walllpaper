@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">test</string>
+    <string name="app_package_name">com.yugle.smartisanwallpaper</string>
+    <string name="running_mode_xposed">Xposed</string>
+    <string name="running_mode_front_service">前台服务</string>
+    <string name="change_frequency_quarter_hour">15分钟</string>
+    <string name="change_frequency_half_hour">半小时</string>
+    <string name="change_frequency_a_hour">1小时</string>
+    <string name="change_frequency_three_hours">3小时</string>
+    <string name="change_frequency_a_day">一天</string>
+    <string name="change_frequency_quarter_hour_value">900</string>
+    <string name="change_frequency_half_hour_value">1800</string>
+    <string name="change_frequency_a_hour_value">3600</string>
+    <string name="change_frequency_three_hours_value">10800</string>
+    <string name="change_frequency_a_day_value">86400</string>
+    <string name="set_wallpaper_immediately">立即设置</string>
+</resources>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="item"
+            type="com.yugle.smartisanwallpaper.data.BaseItem" />
+
+        <variable
+            name="cancelHorizontalInterval"
+            type="boolean" />
+
+        <variable
+            name="isNotVisible"
+            type="boolean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/base_list_item_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@{item.itemSuffixIcon != null ? @drawable/ripple : null}"
+        android:minHeight="55dp"
+        android:paddingStart="@{cancelHorizontalInterval ? @dimen/no_interval : @dimen/layout_horizontal}"
+        android:paddingEnd="@{cancelHorizontalInterval ? @dimen/no_interval : @dimen/layout_horizontal}"
+        android:visibility="@{isNotVisible ? View.GONE : View.VISIBLE}">
+
+        <ImageView
+            android:id="@+id/item_prefix_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@{item.itemPrefixIcon}"
+            android:visibility="@{item.itemPrefixIcon != null ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@{item.itemPrefixIcon != null ? @dimen/text_medium_interval : 0}"
+            android:text="@{item.itemTitle}"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/item_prefix_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlSymmetry"
+            tools:text="胖虎" />
+
+        <TextView
+            android:id="@+id/item_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:breakStrategy="balanced"
+            android:text="@{item.itemValue}"
+            android:textAlignment="textEnd"
+            android:textSize="16sp"
+            android:visibility="@{item.itemValue != null ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/item_unit"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@id/item_title"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="胖虎、胖虎2、胖虎虎、胖虎互换、胖虎虎呼呼、胖虎呼呼呼、胖虎胖虎" />
+
+        <TextView
+            android:id="@+id/item_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@{item.itemSuffixIcon != null ? @dimen/text_small_interval : 0}"
+            android:text="@{item.itemUnit}"
+            android:textSize="16sp"
+            android:visibility="@{item.itemUnit != null ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/item_suffix_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlSymmetry" />
+
+        <ImageView
+            android:id="@+id/item_suffix_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:scaleType="fitEnd"
+            android:src="@{item.itemSuffixIcon}"
+            android:visibility="@{item.itemSuffixIcon != null ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="?attr/colorOnSurfaceVariant" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

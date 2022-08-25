@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/running_mode_xposed"
+        android:title="@string/running_mode_xposed" />
+
+    <item
+        android:id="@+id/running_mode_front_service"
+        android:title="@string/running_mode_front_service" />
+</menu>
