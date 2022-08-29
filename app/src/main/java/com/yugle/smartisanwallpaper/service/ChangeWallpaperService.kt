@@ -43,7 +43,7 @@ class ChangeWallpaperService : Service() {
         if (BuildConfig.DEBUG) {
             timer.schedule(timerTask, delay, 50000L)
         } else {
-            if (changeImmediately) {
+            if (!changeImmediately) {
                 delay = changeFrequency * 1000L
             }
             timer.schedule(timerTask, delay, changeFrequency * 1000L)
