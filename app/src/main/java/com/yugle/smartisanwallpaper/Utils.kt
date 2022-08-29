@@ -56,6 +56,7 @@ object Utils {
             sharedPreferences.getBoolean(Settings.RUNNING_MODE_SETTING_KEY, false),
             sharedPreferences.getInt(Settings.CHANGE_FREQUENCY_SETTING_KEY, 900),
             sharedPreferences.getBoolean(Settings.CHANGE_IMMEDIATELY_SETTING_KEY, false),
+            sharedPreferences.getBoolean(Settings.SHOW_LAUNCH_TIP_KEY, true),
         )
     }
 

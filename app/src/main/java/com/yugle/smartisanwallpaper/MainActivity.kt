@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private var runningModeIsXposed = false
     private var changeFrequency = 900
     private var changeImmediately = false
+    private var toShowLaunchTip = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +40,8 @@ class MainActivity : AppCompatActivity() {
         startService()
 
         setToolbar()
+
+        showLaunchTip()
 
         setRunningModeItem()
         setChangeFrequencyItem()
@@ -143,6 +146,7 @@ class MainActivity : AppCompatActivity() {
         runningModeIsXposed = settings.RUNNING_MODE_SETTING_KEY
         changeFrequency = settings.CHANGE_FREQUENCY_SETTING_KEY
         changeImmediately = settings.CHANGE_IMMEDIATELY_SETTING_KEY
+        toShowLaunchTip = settings.SHOW_LAUNCH_TIP
         Log.d(TAG, "Settings are gotten: ${settings}.")
     }
 
@@ -166,6 +170,21 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+    }
+
+    private fun showLaunchTip() {
+        if (!toShowLaunchTip) {
+            return
+        }
+
+        MaterialAlertDialogBuilder(this).setTitle("重要提示").setMessage("使用前台服务运行模式时请允许自启动权限并锁住后台！")
+            .setPositiveButton("确定且不再提示") { _, _ ->
+                writeSetting(
+                    this,
+                    Settings.SHOW_LAUNCH_TIP_KEY,
+                    false
+                )
+            }.setNegativeButton("确定") { _, _ -> }.show()
     }
 
     companion object {
