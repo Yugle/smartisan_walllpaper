@@ -59,11 +59,6 @@
                         layout="@layout/base_item" />
 
                     <include
-                        android:id="@+id/create_front_service_item"
-                        layout="@layout/base_item"
-                        android:visibility="gone" />
-
-                    <include
                         android:id="@+id/change_frequency_item"
                         layout="@layout/base_item" />
 

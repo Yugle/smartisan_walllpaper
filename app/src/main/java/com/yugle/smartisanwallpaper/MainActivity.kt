@@ -41,7 +41,6 @@ class MainActivity : AppCompatActivity() {
         setToolbar()
 
         setRunningModeItem()
-        setSettingsItems()
         setChangeFrequencyItem()
         setWhetherToSetWallpaperItem()
     }
@@ -78,19 +77,6 @@ class MainActivity : AppCompatActivity() {
         binding.runningModeItem.root.setOnClickListener {
             popupMenu.show()
         }
-    }
-
-    private fun setSettingsItems() {
-        binding.createFrontServiceItem.item = BaseItem(
-            itemTitle = "创建前台服务",
-            itemSuffixIcon = ResourcesCompat.getDrawable(
-                resources,
-                R.drawable.ic_arrow_right,
-                this.theme
-            )
-        )
-
-        binding.createFrontServiceItem.root.setOnClickListener {}
     }
 
     private fun setChangeFrequencyItem() {
