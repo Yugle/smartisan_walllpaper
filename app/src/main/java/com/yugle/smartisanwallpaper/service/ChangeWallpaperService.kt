@@ -1,8 +1,7 @@
 package com.yugle.smartisanwallpaper.service
 
-import android.app.ActivityManager
-import android.app.Service
-import android.app.WallpaperManager
+import android.app.*
+import android.app.NotificationManager.IMPORTANCE_HIGH
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -10,7 +9,9 @@ import android.content.IntentFilter
 import android.os.IBinder
 import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.yugle.smartisanwallpaper.BuildConfig
 import com.yugle.smartisanwallpaper.MainActivity.Companion.SOURCE_LIST
+import com.yugle.smartisanwallpaper.R
 import com.yugle.smartisanwallpaper.Utils.getBitmapFromUrl
 import com.yugle.smartisanwallpaper.Utils.getSettings
 import java.io.IOException
@@ -37,7 +38,28 @@ class ChangeWallpaperService : Service() {
                 setWallpaper()
             }
         }
-        timer.schedule(timerTask, 5000, changeFrequency * 1000L)
+        if (BuildConfig.DEBUG) {
+            timer.schedule(timerTask, 5000, 50000L)
+        } else {
+            timer.schedule(timerTask, 5000, changeFrequency * 1000L)
+        }
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        val notificationChannel = NotificationChannel(
+            getString(R.string.app_package_name),
+            getString(R.string.app_name),
+            IMPORTANCE_HIGH
+        )
+        notificationManager.createNotificationChannel(notificationChannel)
+        val notification = Notification.Builder(this, getString(R.string.app_package_name))
+            .setContentTitle(getText(R.string.app_name))
+            .setContentText(getText(R.string.app_package_name))
+            .build()
+        startForeground(1, notification)
+
+        return super.onStartCommand(intent, flags, startId)
     }
 
     override fun onBind(intent: Intent?): IBinder? {

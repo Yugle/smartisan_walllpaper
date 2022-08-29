@@ -3,17 +3,18 @@ package com.yugle.smartisanwallpaper
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import com.yugle.smartisanwallpaper.service.ChangeWallpaperService
 
 class BootBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         if (intent?.action.equals(ACTION_BOOT_COMPLETED)) {
-            context?.startActivity(
-                Intent(
-                    context,
-                    MainActivity::class.java
-                ).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            )
-//                        context?.startService(Intent(context, ChangeWallpaperService::class.java))
+//            context?.startActivity(
+//                Intent(
+//                    context,
+//                    MainActivity::class.java
+//                ).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//            )
+            context?.startForegroundService(Intent(context, ChangeWallpaperService::class.java))
         }
     }
 

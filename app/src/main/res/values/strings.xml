@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">test</string>
+    <string name="app_name">锤子壁纸</string>
     <string name="app_package_name">com.yugle.smartisanwallpaper</string>
     <string name="running_mode_xposed">Xposed</string>
     <string name="running_mode_front_service">前台服务</string>

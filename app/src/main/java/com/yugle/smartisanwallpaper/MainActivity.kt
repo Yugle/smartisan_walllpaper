@@ -1,7 +1,6 @@
 package com.yugle.smartisanwallpaper
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -141,7 +140,7 @@ class MainActivity : AppCompatActivity() {
     private fun startService() {
         if (!isServiceRunning(this, "ChangeWallpaperService")) {
             val intent = Intent(this, ChangeWallpaperService::class.java)
-            startService(intent)
+            startForegroundService(intent)
         }
     }
 
