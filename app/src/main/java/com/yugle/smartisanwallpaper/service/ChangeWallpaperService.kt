@@ -21,6 +21,7 @@ class ChangeWallpaperService : Service() {
 
     private var runningModeIsXposed = false
     private var changeFrequency = 900
+    private var changeImmediately = false
 
     private val timer by lazy {
         Timer()
@@ -38,10 +39,14 @@ class ChangeWallpaperService : Service() {
                 setWallpaper()
             }
         }
+        var delay = 5000L
         if (BuildConfig.DEBUG) {
-            timer.schedule(timerTask, 5000, 50000L)
+            timer.schedule(timerTask, delay, 50000L)
         } else {
-            timer.schedule(timerTask, 5000, changeFrequency * 1000L)
+            if (changeImmediately) {
+                delay = changeFrequency * 1000L
+            }
+            timer.schedule(timerTask, delay, changeFrequency * 1000L)
         }
     }
 
@@ -70,6 +75,7 @@ class ChangeWallpaperService : Service() {
         val settings = getSettings(this)
         runningModeIsXposed = settings.RUNNING_MODE_SETTING_KEY
         changeFrequency = settings.CHANGE_FREQUENCY_SETTING_KEY
+        changeImmediately = settings.CHANGE_IMMEDIATELY_SETTING_KEY
     }
 
     private fun setBroadcastReceiver() {

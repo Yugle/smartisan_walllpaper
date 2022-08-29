@@ -2,6 +2,7 @@ package com.yugle.smartisanwallpaper
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
@@ -12,6 +13,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.yugle.smartisanwallpaper.Utils.writeSetting
 import com.yugle.smartisanwallpaper.data.BaseItem
 import com.yugle.smartisanwallpaper.data.Settings
+import com.yugle.smartisanwallpaper.data.SwitchValue
 import com.yugle.smartisanwallpaper.databinding.ActivityMainBinding
 import com.yugle.smartisanwallpaper.service.ChangeWallpaperService
 import com.yugle.smartisanwallpaper.service.ChangeWallpaperService.Companion.SET_WALLPAPER_IMMEDIATELY_BROADCAST
@@ -24,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     private var runningModeIsXposed = false
     private var changeFrequency = 900
+    private var changeImmediately = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         setRunningModeItem()
         setSettingsItems()
         setChangeFrequencyItem()
+        setWhetherToSetWallpaperItem()
     }
 
     private fun setRunningModeItem() {
@@ -131,10 +135,29 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setWhetherToSetWallpaperItem() {
+        val item = BaseItem(
+            itemTitle = "应用启动立即设置",
+            itemSwitch = if (changeImmediately) SwitchValue.TRUE else SwitchValue.FALSE
+        )
+        binding.changeAfterAppLaunched.item = item
+        binding.changeAfterAppLaunched.root.setOnClickListener {
+        }
+        binding.changeAfterAppLaunched.itemSuffixSwitch.setOnCheckedChangeListener { _, isChecked ->
+            writeSetting(
+                this,
+                Settings.CHANGE_IMMEDIATELY_SETTING_KEY,
+                isChecked
+            )
+        }
+    }
+
     private fun getSettings() {
         val settings = Utils.getSettings(this)
         runningModeIsXposed = settings.RUNNING_MODE_SETTING_KEY
         changeFrequency = settings.CHANGE_FREQUENCY_SETTING_KEY
+        changeImmediately = settings.CHANGE_IMMEDIATELY_SETTING_KEY
+        Log.d(TAG, "Settings are gotten: ${settings}.")
     }
 
     private fun startService() {
@@ -160,6 +183,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
+        private const val TAG = "MainActivity"
+
         val CHANGE_FREQUENCY_MAP = mapOf(
             "15分钟" to 900,
             "半小时" to 1800,
@@ -168,6 +193,7 @@ class MainActivity : AppCompatActivity() {
             "一天" to 86400,
         )
 
+        // TODO("放在数据库中")
         val SOURCE_LIST = listOf(
             "http://image.smartisan.com/wallpaper/Smartisan/cca5f63a416994534ef2e8d41f49d432.png",
             "http://image.smartisan.com/wallpaper/Smartisan/96009413c55a749f7a9d1f1a9255cd0f.png",

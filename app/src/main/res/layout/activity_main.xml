@@ -67,6 +67,10 @@
                         android:id="@+id/change_frequency_item"
                         layout="@layout/base_item" />
 
+                    <include
+                        android:id="@+id/change_after_app_launched"
+                        layout="@layout/base_item" />
+
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>

@@ -14,6 +14,7 @@ class BootBroadcastReceiver : BroadcastReceiver() {
 //                    MainActivity::class.java
 //                ).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 //            )
+            // TODO("Use WorkManager.")
             context?.startForegroundService(Intent(context, ChangeWallpaperService::class.java))
         }
     }

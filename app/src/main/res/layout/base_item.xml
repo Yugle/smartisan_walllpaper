@@ -7,6 +7,8 @@
 
         <import type="android.view.View" />
 
+        <import type="com.yugle.smartisanwallpaper.data.SwitchValue" />
+
         <variable
             name="item"
             type="com.yugle.smartisanwallpaper.data.BaseItem" />
@@ -90,6 +92,17 @@
             android:scaleType="fitEnd"
             android:src="@{item.itemSuffixIcon}"
             android:visibility="@{item.itemSuffixIcon != null ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="?attr/colorOnSurfaceVariant" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/item_suffix_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@{item.itemSwitch == SwitchValue.TRUE ? true : false}"
+            android:visibility="@{item.itemSwitch != SwitchValue.NULL ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
