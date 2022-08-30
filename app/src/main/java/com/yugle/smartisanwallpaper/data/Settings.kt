@@ -1,7 +1,7 @@
 package com.yugle.smartisanwallpaper.data
 
 data class Settings(
-    val RUNNING_MODE_SETTING_KEY: Boolean = false,
+    val RUNNING_MODE_SETTING_KEY: Boolean = true,
     val CHANGE_FREQUENCY_SETTING_KEY: Int = 900,
     val CHANGE_IMMEDIATELY_SETTING_KEY: Boolean = false,
     val SHOW_LAUNCH_TIP: Boolean = true

@@ -19,7 +19,7 @@ import java.util.*
 
 class ChangeWallpaperService : Service() {
 
-    private var runningModeIsXposed = false
+    private var runningModeIsXposed = true
     private var changeFrequency = 900
     private var changeImmediately = false
 

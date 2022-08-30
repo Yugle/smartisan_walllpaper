@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var _binding: ActivityMainBinding
     val binding get() = _binding
 
-    private var runningModeIsXposed = false
+    private var runningModeIsXposed = true
     private var changeFrequency = 900
     private var changeImmediately = false
     private var toShowLaunchTip = true
@@ -36,8 +36,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         getSettings()
-
-        startService()
 
         setToolbar()
 
@@ -61,6 +59,9 @@ class MainActivity : AppCompatActivity() {
             )
         )
         binding.runningModeItem.item = settingItem
+        if (!toShowLaunchTip && !runningModeIsXposed) {
+            startService()
+        }
 
         val popupMenu = PopupMenu(
             this,
@@ -75,6 +76,11 @@ class MainActivity : AppCompatActivity() {
                 Settings.RUNNING_MODE_SETTING_KEY,
                 it.itemId == R.id.running_mode_xposed
             )
+            if (it.itemId == R.id.running_mode_xposed) {
+                stopService()
+            } else {
+                startService()
+            }
             true
         }
         binding.runningModeItem.root.setOnClickListener {
@@ -157,6 +163,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun stopService() {
+        val intent = Intent(this, ChangeWallpaperService::class.java)
+        stopService(intent)
+    }
+
     private fun setToolbar() {
         val dialog = MaterialAlertDialogBuilder(this).setTitle("立即设置").setMessage("是否立即设置？")
             .setPositiveButton("确定") { _, _ ->
@@ -178,14 +189,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         MaterialAlertDialogBuilder(this).setTitle("重要提示")
-            .setMessage("1. 使用前台服务运行模式时请允许自启动权限并锁住后台\n2. 设置壁纸时SystemUI可能会暂时卡顿，是正常情况")
+            .setMessage("1. 使用前台服务运行模式时请允许自启动权限、省点策略改为不限制、锁住后台\n2. 设置壁纸时SystemUI可能会暂时卡顿，是正常情况")
             .setPositiveButton("确定且不再提示") { _, _ ->
                 writeSetting(
                     this,
                     Settings.SHOW_LAUNCH_TIP_KEY,
                     false
                 )
-            }.setNegativeButton("确定") { _, _ -> }.show()
+            }.setNegativeButton("确定") { _, _ -> }.setOnDismissListener {
+                if (!runningModeIsXposed) {
+                    startService()
+                }
+            }.show()
     }
 
     companion object {
