@@ -189,7 +189,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         MaterialAlertDialogBuilder(this).setTitle("重要提示")
-            .setMessage("1. 使用前台服务运行模式时请允许自启动权限、省点策略改为不限制、锁住后台\n2. 设置壁纸时SystemUI可能会暂时卡顿，是正常情况")
+            .setMessage("1. 使用前台服务运行模式时请允许自启动权限、省电策略改为不限制、锁住后台\n2. 设置壁纸时SystemUI可能会暂时卡顿，是正常情况")
             .setPositiveButton("确定且不再提示") { _, _ ->
                 writeSetting(
                     this,
