@@ -8,8 +8,8 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.IBinder
 import android.util.Log
+import android.widget.Toast
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.yugle.smartisanwallpaper.BuildConfig
 import com.yugle.smartisanwallpaper.MainActivity.Companion.SOURCE_LIST
 import com.yugle.smartisanwallpaper.R
 import com.yugle.smartisanwallpaper.Utils.getBitmapFromUrl
@@ -40,14 +40,18 @@ class ChangeWallpaperService : Service() {
             }
         }
         var delay = 5000L
-        if (BuildConfig.DEBUG) {
-            timer.schedule(timerTask, delay, 50000L)
-        } else {
-            if (!changeImmediately) {
-                delay = changeFrequency * 1000L
-            }
-            timer.schedule(timerTask, delay, changeFrequency * 1000L)
+//        if (BuildConfig.DEBUG) {
+//            timer.schedule(timerTask, delay, 50000L)
+//        } else {
+//            if (!changeImmediately) {
+//                delay = changeFrequency * 1000L
+//            }
+//            timer.schedule(timerTask, delay, changeFrequency * 1000L)
+//        }
+        if (!changeImmediately) {
+            delay = changeFrequency * 1000L
         }
+        timer.schedule(timerTask, delay, changeFrequency * 1000L)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -63,6 +67,7 @@ class ChangeWallpaperService : Service() {
             .setContentText(getText(R.string.app_package_name))
             .build()
         startForeground(1, notification)
+        Toast.makeText(this, "来了", Toast.LENGTH_SHORT).show()
 
         return super.onStartCommand(intent, flags, startId)
     }
